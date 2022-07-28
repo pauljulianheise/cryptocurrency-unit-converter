@@ -19,11 +19,26 @@ class ConvertSolanaTest extends TestCase
         $this->converter = new Converter();
     }
 
-    public function testInvalidUnit()
+    public function testInvalidAmount()
     {
         $this->expectException(\UnexpectedValueException::class);
         $amount = '1,5';
         $this->converter->solana()->convert($amount, Solana::SOL, Solana::LAMPORT);
+    }
+
+    public function testInvalidFromUnit()
+    {
+        $this->expectException(\UnexpectedValueException::class);
+        $amount = '1.5';
+        $this->converter->ethereum()->convert($amount, 'sola', Solana::SOL);
+    }
+
+
+    public function testInvalidToUnit()
+    {
+        $this->expectException(\UnexpectedValueException::class);
+        $amount = '1.5';
+        $this->converter->ethereum()->convert($amount, Solana::SOL, 'lamporta');
     }
 
     public function testConvertToSmaller()

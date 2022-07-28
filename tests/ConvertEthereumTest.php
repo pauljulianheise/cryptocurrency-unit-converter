@@ -19,11 +19,25 @@ class ConvertEthereumTest extends TestCase
         $this->converter = new Converter();
     }
 
-    public function testInvalidUnit()
+    public function testInvalidAmount()
     {
         $this->expectException(\UnexpectedValueException::class);
         $amount = '1,5';
         $this->converter->ethereum()->convert($amount, Ethereum::WEI, Ethereum::ETHER);
+    }
+
+    public function testInvalidFromUnit()
+    {
+        $this->expectException(\UnexpectedValueException::class);
+        $amount = '1.5';
+        $this->converter->ethereum()->convert($amount, 'Weei', Ethereum::ETHER);
+    }
+
+    public function testInvalidToUnit()
+    {
+        $this->expectException(\UnexpectedValueException::class);
+        $amount = '1.5';
+        $this->converter->ethereum()->convert($amount, Ethereum::ETHER, 'tethere');
     }
 
     public function testConvertToSmaller()
