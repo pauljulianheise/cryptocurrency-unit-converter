@@ -20,8 +20,8 @@ class Ethereum extends CurrencyConverter
     
     CONST BIGGEST_UNIT = self::TETHER;
     CONST SMALLEST_UNIT = self::WEI;
-    
-    public function getMap(): array {
+
+    protected function getMap(): array {
         return [
             self::WEI => [
                 self::WEI => '1',

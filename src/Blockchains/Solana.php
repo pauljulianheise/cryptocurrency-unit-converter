@@ -12,7 +12,7 @@ class Solana extends CurrencyConverter
     CONST BIGGEST_UNIT = self::SOL;
     CONST SMALLEST_UNIT = self::LAMPORT;
 
-    public function getMap(): array {
+    protected function getMap(): array {
         return [
             self::SOL => [
                 self::SOL => '1',

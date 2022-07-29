@@ -12,7 +12,7 @@ class Tron extends CurrencyConverter
     CONST BIGGEST_UNIT = self::TRX;
     CONST SMALLEST_UNIT = self::SUN;
 
-    public function getMap(): array {
+    protected function getMap(): array {
         return [
             self::TRX => [
                 self::TRX => '1',

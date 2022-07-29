@@ -12,7 +12,7 @@ class Cardano extends CurrencyConverter
     CONST BIGGEST_UNIT = self::ADA;
     CONST SMALLEST_UNIT = self::LOVELACE;
 
-    public function getMap(): array {
+    protected function getMap(): array {
         return [
             self::ADA => [
                 self::ADA => '1',
