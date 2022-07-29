@@ -2,11 +2,11 @@
 
 namespace PaulJulianHeise\CryptoCurrency\Test;
 
-use PaulJulianHeise\CryptoCurrency\Blockchains\Solana;
+use PaulJulianHeise\CryptoCurrency\Blockchains\Cardano;
 use PaulJulianHeise\CryptoCurrency\Converter;
 use PHPUnit\Framework\TestCase;
 
-class ConvertSolanaTest extends TestCase
+class ConvertCardanoTest extends TestCase
 {
     /**
      * @var Converter
@@ -23,14 +23,14 @@ class ConvertSolanaTest extends TestCase
     {
         $this->expectException(\UnexpectedValueException::class);
         $amount = '1,5';
-        $this->converter->solana()->convert($amount, Solana::SOL, Solana::LAMPORT);
+        $this->converter->cardano()->convert($amount, Cardano::ADA, Cardano::LOVELACE);
     }
 
     public function testInvalidFromUnit()
     {
         $this->expectException(\UnexpectedValueException::class);
         $amount = '1.5';
-        $this->converter->solana()->convert($amount, 'sola', Solana::SOL);
+        $this->converter->cardano()->convert($amount, 'adaa', Cardano::ADA);
     }
 
 
@@ -38,14 +38,14 @@ class ConvertSolanaTest extends TestCase
     {
         $this->expectException(\UnexpectedValueException::class);
         $amount = '1.5';
-        $this->converter->solana()->convert($amount, Solana::SOL, 'lamporta');
+        $this->converter->cardano()->convert($amount, Cardano::ADA, 'lamporta');
     }
 
     public function testConvertToSmaller()
     {
         foreach ($this->getExpectedResultsToSmaller() as $unit => $result) {
             $amount = '59';
-            $value = $this->converter->solana()->convert($amount, $unit, Solana::LAMPORT);
+            $value = $this->converter->cardano()->convert($amount, $unit, Cardano::LOVELACE);
             $this->assertEquals($value, $result);
         }
     }
@@ -54,7 +54,7 @@ class ConvertSolanaTest extends TestCase
     {
         foreach ($this->getExpectedResultsToBigger() as $unit => $result) {
             $amount = '23';
-            $value = $this->converter->solana()->convert($amount, $unit, Solana::SOL);
+            $value = $this->converter->cardano()->convert($amount, $unit, Cardano::ADA);
             $this->assertEquals($value, $result);
         }
     }
@@ -63,7 +63,7 @@ class ConvertSolanaTest extends TestCase
     {
         foreach ($this->getExpectedResultsToSmallerWithComma() as $unit => $result) {
             $amount = '1.533';
-            $value = $this->converter->solana()->convert($amount, $unit, Solana::LAMPORT);
+            $value = $this->converter->cardano()->convert($amount, $unit, Cardano::LOVELACE);
             $this->assertEquals($value, $result);
         }
     }
@@ -72,7 +72,7 @@ class ConvertSolanaTest extends TestCase
     {
         foreach ($this->getExpectedResultsToBiggerWithComma() as $unit => $result) {
             $amount = '23.65632';
-            $value = $this->converter->solana()->convert($amount, $unit, Solana::SOL);
+            $value = $this->converter->cardano()->convert($amount, $unit, Cardano::ADA);
             $this->assertEquals($value, $result);
         }
     }
@@ -81,32 +81,32 @@ class ConvertSolanaTest extends TestCase
     private function getExpectedResultsToBigger(): array
     {
         return [
-            'sol'        => '23',
-            'lamport'       => '0.000000023',
+            'ada'        => '23',
+            'lovelace'       => '0.000023',
         ];
     }
 
     private function getExpectedResultsToSmaller(): array
     {
         return [
-            'sol'        => '59000000000',
-            'lamport'       => '59',
+            'ada'        => '59000000',
+            'lovelace'       => '59',
         ];
     }
 
     private function getExpectedResultsToBiggerWithComma(): array
     {
         return [
-            'sol'        => '23.65632',
-            'lamport'       => '0.00000002365632',
+            'ada'        => '23.65632',
+            'lovelace'       => '0.00002365632',
         ];
     }
 
     private function getExpectedResultsToSmallerWithComma(): array
     {
         return [
-            'sol'        => '1533000000',
-            'lamport'       => '1.533',
+            'ada'        => '1533000',
+            'lovelace'       => '1.533',
         ];
     }
 }
