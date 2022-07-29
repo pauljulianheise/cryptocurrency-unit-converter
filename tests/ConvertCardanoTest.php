@@ -11,7 +11,7 @@ class ConvertCardanoTest extends TestCase
     /**
      * @var Converter
      */
-    private $converter;
+    private Converter $converter;
 
     protected function setUp(): void
     {
